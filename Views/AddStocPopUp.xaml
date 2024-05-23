@@ -1,0 +1,43 @@
+﻿<Window x:Class="Magazin.Views.AddStocPopUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Magazin.Views"
+        mc:Ignorable="d"
+        Title="AddStocPopUp" Height="600" Width="800">
+    <Grid Margin="0,0,0,-6">
+        <TextBlock Text="Produs" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ProduseComboBox" HorizontalAlignment="Left" Width="138" Margin="10,31,0,512"
+          ItemsSource="{Binding Produse}" DisplayMemberPath="nume_prod" SelectedItem="{Binding SelectedProdus}"/>
+
+
+        <TextBlock Text="Cantitate" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Cantitate" HorizontalAlignment="Left" Height="23" Margin="10,95,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding Cantitate, UpdateSourceTrigger=PropertyChanged, StringFormat=N0}"/>
+        <TextBlock Text="Pret" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Pret" HorizontalAlignment="Left" Height="23" Margin="10,155,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding Pret, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}"/>
+        <TextBlock Text="Adaos" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Adaos" HorizontalAlignment="Left" Height="23" Margin="10,215,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding Adaos, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}"/>
+        <TextBlock Text="UM" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="UM" HorizontalAlignment="Left" Height="23" Margin="10,275,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding UM, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Data Aprovizionare" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DataAprovizionare" HorizontalAlignment="Left" Margin="10,335,0,0"
+                    VerticalAlignment="Top" Width="120" SelectedDate="{Binding DataAprovizionare}"/>
+        <TextBlock Text="Data Expirare" HorizontalAlignment="Left" Margin="10,378,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DataExpirare" HorizontalAlignment="Left" Margin="10,411,0,0" 
+                    VerticalAlignment="Top" Width="120" SelectedDate="{Binding DataExpirare}"/>
+        <Button x:Name="AddStoc" Content="Adauga" HorizontalAlignment="Left" Margin="10,471,0,0"
+                VerticalAlignment="Top" Width="75" Command="{Binding AddStocCommand}"/>
+        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="110,471,0,0"
+                VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}"/>
+
+    </Grid>
+</Window>

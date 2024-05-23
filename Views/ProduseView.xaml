@@ -1,0 +1,80 @@
+﻿<Page x:Class="Magazin.Views.ProduseView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Magazin"
+      xmlns:converters="clr-namespace:Magazin.Converters"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProduseView">
+
+    <Page.Resources>
+        <converters:ProducatoriIdConverter x:Key="ProducatoriIdConverter"/>
+        <converters:CategorieIdConverter x:Key="CategorieIdConverter"/>
+        <converters:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="700">
+            <TextBox x:Name="SearchTextBox" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="304"/>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Width="583">
+                <DataGrid ItemsSource="{Binding FilteredProduse, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False"
+                  Margin="70,53,0,0"
+                  CanUserAddRows="{Binding Source={x:Static local:GlobalVariables.IsAdmin}}"
+                  IsReadOnly="{Binding Converter={StaticResource BooleanNegationConverter}, Source={x:Static local:GlobalVariables.IsAdmin}}"
+                  RowEditEnding="DataGrid_RowEditEnding" Height="211" Width="458">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Product Name" 
+                                        Binding="{Binding nume_prod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                         />
+                        <DataGridTextColumn Header="Barcode" Binding="{Binding cod_bare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                        <DataGridTemplateColumn Header="Manufacturer">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProducatorName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding DataContext.Producatori, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                      SelectedItem="{Binding producator, Converter={StaticResource ProducatoriIdConverter}, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="nume_producator"
+                      IsEnabled="{Binding Source={x:Static local:GlobalVariables.IsAdmin}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Category">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding CategorieName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding DataContext.Categorii, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                      SelectedItem="{Binding categorie, Converter={StaticResource CategorieIdConverter}, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="categorie"
+                      IsEnabled="{Binding Source={x:Static local:GlobalVariables.IsAdmin}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <!-- Delete button column -->
+                        <DataGridTemplateColumn Header="Actions">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" 
+                                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" 
+                                    CommandParameter="{Binding}" 
+                                    IsEnabled="{Binding Source={x:Static local:GlobalVariables.IsAdmin}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Page>

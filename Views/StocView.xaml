@@ -1,0 +1,47 @@
+﻿<Page x:Class="Magazin.Views.StocView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Magazin"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StocView">
+
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="700">
+            <Button Content="Adauga" Command="{Binding AdaugaCommand}" Margin="0,0,0,10" Height="33" Width="199"/>
+            <!-- Add any necessary UI elements here -->
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Width="700">
+                <DataGrid ItemsSource="{Binding Stocuri}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          Height="351"
+           CellEditEnding="DataGrid_CellEditEnding">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Produs" Binding="{Binding ProdusName}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Cantitate" Binding="{Binding cantitate}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="UM" Binding="{Binding um}" />
+                        <DataGridTextColumn Header="Aprovizionare" Binding="{Binding aprovizionare}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Expirare" Binding="{Binding expirare}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Pret Achizitie" Binding="{Binding pret_achizitie}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Pret Vanzare" Binding="{Binding pret_vanzare}" IsReadOnly="False"/>
+                        <DataGridTemplateColumn Header="Actiuni">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="Delete" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                                CommandParameter="{Binding}" Margin="0,0,5,0"
+                                                IsEnabled="{Binding Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Page>

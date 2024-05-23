@@ -1,0 +1,36 @@
+﻿<Page x:Class="Magazin.Views.ProducatoriView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Magazin.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProducatoriView">
+
+    <Grid>
+        <DataGrid ItemsSource="{Binding Producatori, UpdateSourceTrigger=PropertyChanged}"
+              AutoGenerateColumns="False"
+              Margin="70,53,0,0"
+              RowEditEnding="DataGrid_RowEditEnding" Height="211" Width="458">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Producator" 
+                        Binding="{Binding nume_producator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                       />
+                <DataGridTextColumn Header="Tara" 
+                     Binding="{Binding tara_origine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    />
+                <DataGridTemplateColumn Header="Actions">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" 
+                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" 
+                            CommandParameter="{Binding}" 
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

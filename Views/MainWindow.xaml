@@ -1,0 +1,54 @@
+﻿<Window x:Class="Magazin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Magazin"
+        xmlns:converters="clr-namespace:Magazin.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <converters:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Navigation bar -->
+        <ToolBar Grid.Column="0">
+            <StackPanel Orientation="Vertical">
+                <Button Content="Produse" Click="NavigateToProdusView_Click"/>
+                <Button Content="Stocuri" Click="NavigateToStocuriView_Click" 
+                        IsEnabled="{Binding 
+                    Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Categorii" Click="NavigateToCategorieView_Click"
+                                IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Producatori" Click="NavigateToProducatorView_Click"
+                                IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Utilizatori" Click="NavigateToUtilizatorView_Click"
+                                IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Vanzare" Click="NavigateToBonView_Click"/>
+                <Button Content="Bonul Zilei" Click="NavigateToBonulZileiBiew_Click"
+                               IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Produse de la Producator" Click="NavigateToSelectProducator_Click"
+                               IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Valoare per Categorie" Click="NavigateToValoareCategorieView_Click"
+                                IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+                <Button Content="Incasari Operator" Click="NavigateToSelectUtilizatorView_Click"
+                               IsEnabled="{Binding 
+Source={x:Static local:GlobalVariables.IsAdmin}}"/>
+            </StackPanel>
+        </ToolBar>
+
+        <!-- Content area -->
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Margin="10"/>
+    </Grid>
+</Window>

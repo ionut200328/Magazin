@@ -1,0 +1,54 @@
+﻿<Window x:Class="Magazin.Views.BonView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Magazin.Views"
+        mc:Ignorable="d"
+        Title="BonView" Height="450" Width="391">
+    <Grid Margin="0,0,45,28">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,50,0,0">
+            <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Width="337" Height="205" 
+              ItemsSource="{Binding BonItems}"
+                      IsEnabled="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Cantitate">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Cantitate, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Produs">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Produs.nume_prod}"
+                                   
+                                   Width="100"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding DataContext.Produse, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                  SelectedItem="{Binding Produs, UpdateSourceTrigger=PropertyChanged}" Width="100"
+                                  DisplayMemberPath="nume_prod"
+                                  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Subtotal">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Subtotal}" Width="100"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <TextBlock Text="Total: " Margin="10,279,0,92"/>
+        <TextBox x:Name="txtTotal" Text="{Binding Total, Mode=OneWay}"
+                 Margin="69,279,177,70" Width="100" IsEnabled="False"
+                 />
+    </Grid>
+</Window>
